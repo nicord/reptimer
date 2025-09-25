@@ -6,8 +6,6 @@ interface KeyboardHandlers {
   onNext?: () => void
   onPrevious?: () => void
   onFullscreen?: () => void
-  onMute?: () => void
-  onVoice?: () => void
   onReset?: () => void
 }
 
@@ -55,16 +53,6 @@ export function useKeyboard(
         handled = true
         break
       
-      case 'm':
-        handlers.onMute?.()
-        handled = true
-        break
-      
-      case 'v':
-        handlers.onVoice?.()
-        handled = true
-        break
-      
       case 'r':
         if (event.ctrlKey || event.metaKey) {
           // Don't interfere with browser refresh
@@ -98,8 +86,6 @@ export function useKeyboard(
       'N': 'Next interval',
       'B': 'Previous interval', 
       'F': 'Fullscreen',
-      'M': 'Mute audio',
-      'V': 'Toggle voice',
       'R': 'Reset timer',
     }
   }

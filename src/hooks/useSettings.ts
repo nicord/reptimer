@@ -23,14 +23,10 @@ export function useSettings() {
     }
   }, [lastRoutine])
 
-  // Apply dark mode to document
+  // Force light mode - ensure dark mode is never applied
   useEffect(() => {
-    if (settings.darkMode) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }, [settings.darkMode])
+    document.documentElement.classList.remove('dark')
+  }, [])
 
   const updateSetting = useCallback(<K extends keyof UserSettings>(
     key: K, 

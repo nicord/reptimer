@@ -23,6 +23,7 @@ export function useTimer(options: UseTimerOptions = {}) {
 
   const [routine, setRoutine] = useState<Routine>([])
   const [lastCountdownSecond, setLastCountdownSecond] = useState<number>(-1)
+  const [hasStartedBefore, setHasStartedBefore] = useState<boolean>(false)
 
   const timerRef = useRef<TimerEngine | null>(null)
   const audioRef = useRef<AudioEngine | null>(null)
@@ -105,8 +106,14 @@ export function useTimer(options: UseTimerOptions = {}) {
   const start = useCallback(() => {
     if (routine.length === 0) return
     timerRef.current?.start()
-    speechRef.current?.announceResume()
-  }, [routine])
+    
+    if (!hasStartedBefore) {
+      speechRef.current?.announceStart()
+      setHasStartedBefore(true)
+    } else {
+      speechRef.current?.announceResume()
+    }
+  }, [routine, hasStartedBefore])
 
   const pause = useCallback(() => {
     timerRef.current?.pause()
@@ -116,6 +123,7 @@ export function useTimer(options: UseTimerOptions = {}) {
   const reset = useCallback(() => {
     timerRef.current?.reset()
     setLastCountdownSecond(-1)
+    setHasStartedBefore(false)
   }, [])
 
   const next = useCallback(() => {
@@ -145,6 +153,7 @@ export function useTimer(options: UseTimerOptions = {}) {
   const setTimerRoutine = useCallback((newRoutine: Routine) => {
     setRoutine(newRoutine)
     setLastCountdownSecond(-1)
+    setHasStartedBefore(false)
   }, [])
 
   const testAudio = useCallback(() => {
@@ -153,6 +162,22 @@ export function useTimer(options: UseTimerOptions = {}) {
 
   const testSpeech = useCallback(() => {
     speechRef.current?.test()
+  }, [])
+
+  const refreshVoices = useCallback(() => {
+    speechRef.current?.refreshVoices()
+  }, [])
+
+  const getFemaleVoices = useCallback(() => {
+    return speechRef.current?.getFemaleVoices() || []
+  }, [])
+
+  const getAvailableVoices = useCallback(() => {
+    return speechRef.current?.getAvailableVoices() || []
+  }, [])
+
+  const setVoice = useCallback((voice: SpeechSynthesisVoice) => {
+    speechRef.current?.setVoice(voice)
   }, [])
 
   return {
@@ -174,6 +199,12 @@ export function useTimer(options: UseTimerOptions = {}) {
     // Testing
     testAudio,
     testSpeech,
+    
+    // Voice control
+    refreshVoices,
+    getFemaleVoices,
+    getAvailableVoices,
+    setVoice,
     
     // Progress calculations
     currentIntervalProgress: timerState.timeRemaining > 0 && getCurrentInterval() 

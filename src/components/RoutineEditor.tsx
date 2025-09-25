@@ -153,15 +153,15 @@ export default function RoutineEditor({
         />
         
         {/* Modal */}
-        <div className="relative bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-xl">
+        <div className="relative bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-xl">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+            <h2 className="text-xl font-semibold text-gray-900">
               {title}
             </h2>
             <button
               onClick={onClose}
-              className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              className="p-2 text-gray-400 hover:text-gray-600"
             >
               <XMarkIcon className="w-5 h-5" />
             </button>
@@ -170,15 +170,15 @@ export default function RoutineEditor({
           {/* Content */}
           <div className="p-6 overflow-y-auto max-h-[calc(90vh-8rem)]">
             {/* Stats */}
-            <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div className="mb-6 p-4 bg-gray-50 rounded-lg">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                 <div>
                   <span className="font-medium">Total Intervals:</span>{' '}
-                  <span className="text-blue-600 dark:text-blue-400">{routine.length}</span>
+                  <span className="text-blue-600">{routine.length}</span>
                 </div>
                 <div>
                   <span className="font-medium">Total Duration:</span>{' '}
-                  <span className="text-green-600 dark:text-green-400">{formatDuration(totalDuration)}</span>
+                  <span className="text-green-600">{formatDuration(totalDuration)}</span>
                 </div>
                 <div className="md:col-span-1 col-span-2">
                   <span className="font-medium">Types:</span>{' '}
@@ -193,7 +193,7 @@ export default function RoutineEditor({
                 <div 
                   key={index}
                   className={`p-4 border rounded-lg ${
-                    errors[index] ? 'border-red-300 bg-red-50 dark:bg-red-900/10' : 'border-gray-200 dark:border-gray-700'
+                    errors[index] ? 'border-red-300 bg-red-50' : 'border-gray-200'
                   }`}
                 >
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-start">
@@ -224,7 +224,7 @@ export default function RoutineEditor({
                         type="text"
                         value={interval.label}
                         onChange={(e) => updateInterval(index, 'label', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-white dark:bg-gray-700"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm bg-white"
                         placeholder="Interval name"
                       />
                     </div>
@@ -236,7 +236,7 @@ export default function RoutineEditor({
                         type="text"
                         defaultValue={interval.duration.toString()}
                         onChange={(e) => handleDurationChange(index, e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-white dark:bg-gray-700"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm bg-white"
                         placeholder="30 or 1:30"
                       />
                     </div>
@@ -247,7 +247,7 @@ export default function RoutineEditor({
                       <select
                         value={interval.type}
                         onChange={(e) => updateInterval(index, 'type', e.target.value as IntervalType)}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-white dark:bg-gray-700"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm bg-white"
                       >
                         <option value="warmup">Warmup</option>
                         <option value="work">Work</option>
@@ -265,11 +265,11 @@ export default function RoutineEditor({
                           type="color"
                           value={interval.color || getIntervalColor(interval.type)}
                           onChange={(e) => updateInterval(index, 'color', e.target.value)}
-                          className="w-8 h-8 border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
+                          className="w-8 h-8 border border-gray-300 rounded cursor-pointer"
                         />
                         <button
                           onClick={() => updateInterval(index, 'color', undefined)}
-                          className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                          className="text-xs text-gray-500 hover:text-gray-700"
                           title="Reset to default"
                         >
                           Reset
@@ -298,7 +298,7 @@ export default function RoutineEditor({
 
                   {/* Error message */}
                   {errors[index] && (
-                    <div className="mt-2 text-xs text-red-600 dark:text-red-400">
+                    <div className="mt-2 text-xs text-red-600">
                       {errors[index]}
                     </div>
                   )}
@@ -308,9 +308,9 @@ export default function RoutineEditor({
               {/* Add interval button */}
               <button
                 onClick={addInterval}
-                className="w-full p-4 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg hover:border-blue-400 dark:hover:border-blue-500 transition-colors"
+                className="w-full p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-400 transition-colors"
               >
-                <div className="flex items-center justify-center text-gray-600 dark:text-gray-400">
+                <div className="flex items-center justify-center text-gray-600">
                   <PlusIcon className="w-5 h-5 mr-2" />
                   Add Interval
                 </div>
@@ -319,7 +319,7 @@ export default function RoutineEditor({
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200">
             <button
               onClick={onClose}
               className="btn btn-secondary"

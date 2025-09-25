@@ -103,10 +103,10 @@ export default function ImportExportModal({
         />
         
         {/* Modal */}
-        <div className="relative bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-xl">
+        <div className="relative bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-xl">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center">
+          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+            <h2 className="text-xl font-semibold text-gray-900 flex items-center">
               {mode === 'import' ? (
                 <>
                   <DocumentArrowUpIcon className="w-5 h-5 mr-2" />
@@ -121,7 +121,7 @@ export default function ImportExportModal({
             </h2>
             <button
               onClick={onClose}
-              className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              className="p-2 text-gray-400 hover:text-gray-600"
             >
               <XMarkIcon className="w-5 h-5" />
             </button>
@@ -134,7 +134,7 @@ export default function ImportExportModal({
                 {/* File upload */}
                 <div>
                   <h3 className="text-lg font-medium mb-3">Import from File</h3>
-                  <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center">
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
                     <input
                       ref={fileInputRef}
                       type="file"
@@ -149,7 +149,7 @@ export default function ImportExportModal({
                       <DocumentArrowUpIcon className="w-4 h-4 mr-2" />
                       Choose JSON File
                     </button>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                    <p className="text-sm text-gray-500 mt-2">
                       Select a .json file containing routine data
                     </p>
                   </div>
@@ -158,10 +158,10 @@ export default function ImportExportModal({
                 {/* Divider */}
                 <div className="relative">
                   <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-300 dark:border-gray-600" />
+                    <div className="w-full border-t border-gray-300" />
                   </div>
                   <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">OR</span>
+                    <span className="px-2 bg-white text-gray-500">OR</span>
                   </div>
                 </div>
 
@@ -172,10 +172,10 @@ export default function ImportExportModal({
                     value={jsonInput}
                     onChange={(e) => setJsonInput(e.target.value)}
                     placeholder="Paste routine JSON here..."
-                    className="w-full h-48 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-white dark:bg-gray-700 font-mono"
+                    className="w-full h-48 px-3 py-2 border border-gray-300 rounded-md text-sm bg-white font-mono"
                   />
                   {error && (
-                    <div className="mt-2 text-sm text-red-600 dark:text-red-400">
+                    <div className="mt-2 text-sm text-red-600">
                       {error}
                     </div>
                   )}
@@ -224,11 +224,11 @@ export default function ImportExportModal({
                 <div>
                   <h3 className="text-lg font-medium mb-3">Routine JSON</h3>
                   <div className="relative">
-                    <pre className="w-full h-96 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-xs bg-gray-50 dark:bg-gray-900 font-mono overflow-auto">
+                    <pre className="w-full h-96 px-3 py-2 border border-gray-300 rounded-md text-xs bg-gray-50 font-mono overflow-auto">
                       {exportJson}
                     </pre>
                   </div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+                  <p className="text-sm text-gray-500 mt-2">
                     This JSON can be saved to a file or shared with others to import the same routine.
                   </p>
                 </div>
@@ -237,7 +237,7 @@ export default function ImportExportModal({
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-end gap-3 p-6 border-t border-gray-200">
             <button
               onClick={onClose}
               className="btn btn-secondary"

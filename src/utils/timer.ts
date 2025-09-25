@@ -59,6 +59,9 @@ export class TimerEngine {
       cancelAnimationFrame(this.animationFrameId)
       this.animationFrameId = null
     }
+    
+    // Update state immediately to reflect pause
+    this.updateState()
   }
 
   reset(): void {
@@ -155,7 +158,11 @@ export class TimerEngine {
 
   private updateState(): void {
     const now = Date.now()
-    const totalElapsed = this.isRunning ? now - this.startTime - this.pausedTime : 0
+    const totalElapsed = this.isRunning 
+      ? now - this.startTime - this.pausedTime
+      : this.isPaused 
+        ? this.pauseStartTime - this.startTime - this.pausedTime
+        : 0
     
     // Calculate elapsed time for current interval
     const elapsedForPreviousIntervals = this.routine

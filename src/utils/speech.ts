@@ -30,14 +30,35 @@ export class SpeechEngine {
 
     const voices = this.synth.getVoices()
     
-    // Prefer English voices, prioritize female voices for workout instructions
-    const preferredVoice = voices.find(voice => 
-      voice.lang.startsWith('en') && voice.name.toLowerCase().includes('female')
-    ) || voices.find(voice => 
-      voice.lang.startsWith('en')
-    ) || voices[0]
+    // Enhanced female voice detection patterns
+    const femaleIndicators = [
+      'female', 'woman', 'girl', 'lady', 'samantha', 'victoria', 'alex', 'allison', 
+      'ava', 'susan', 'karen', 'moira', 'tessa', 'veena', 'fiona', 'serena',
+      'kyoko', 'amelie', 'audrey', 'aurelie', 'anna', 'ellen', 'zuzana',
+      'milena', 'laura', 'petra', 'klara', 'mariska', 'zira', 'hazel'
+    ]
+    
+    // Find English voices first
+    const englishVoices = voices.filter(voice => voice.lang.startsWith('en'))
+    
+    // Try to find a female English voice
+    const femaleEnglishVoice = englishVoices.find(voice => 
+      femaleIndicators.some(indicator => 
+        voice.name.toLowerCase().includes(indicator)
+      )
+    )
+    
+    // Fallback hierarchy: female English voice > any English voice > any voice
+    const preferredVoice = femaleEnglishVoice || 
+                          englishVoices[0] || 
+                          voices[0]
 
     this.voice = preferredVoice || null
+    
+    // Log the selected voice for debugging
+    if (this.voice) {
+      console.log(`🎤 Selected voice: ${this.voice.name} (${this.voice.lang})`)
+    }
   }
 
   setEnabled(enabled: boolean): void {
@@ -119,6 +140,11 @@ export class SpeechEngine {
     this.speak('Workout paused', { rate: 0.8 })
   }
 
+  announceStart(): void {
+    if (!this.isEnabled || !this.synth) return
+    this.speak('Starting workout', { rate: 0.8 })
+  }
+
   announceResume(): void {
     if (!this.isEnabled || !this.synth) return
     this.speak('Resuming workout', { rate: 0.8 })
@@ -128,7 +154,10 @@ export class SpeechEngine {
    * Test the speech synthesis
    */
   test(): void {
-    this.speak('Speech test. RepTimer is ready for your workout!')
+    const message = this.voice 
+      ? `Speech test using ${this.voice.name}. RepTimer is ready for your workout!`
+      : 'Speech test. RepTimer is ready for your workout!'
+    this.speak(message)
   }
 
   /**
@@ -212,6 +241,35 @@ export class SpeechEngine {
    */
   setVoice(voice: SpeechSynthesisVoice): void {
     this.voice = voice
+    console.log(`🎤 Voice manually set to: ${voice.name} (${voice.lang})`)
+  }
+
+  /**
+   * Force refresh voice selection (useful if voices load after initialization)
+   */
+  refreshVoices(): void {
+    this.loadVoices()
+  }
+
+  /**
+   * Get available female voices specifically
+   */
+  getFemaleVoices(): SpeechSynthesisVoice[] {
+    if (!this.synth) return []
+    
+    const voices = this.synth.getVoices()
+    const femaleIndicators = [
+      'female', 'woman', 'girl', 'lady', 'samantha', 'victoria', 'alex', 'allison', 
+      'ava', 'susan', 'karen', 'moira', 'tessa', 'veena', 'fiona', 'serena',
+      'kyoko', 'amelie', 'audrey', 'aurelie', 'anna', 'ellen', 'zuzana',
+      'milena', 'laura', 'petra', 'klara', 'mariska', 'zira', 'hazel'
+    ]
+    
+    return voices.filter(voice => 
+      femaleIndicators.some(indicator => 
+        voice.name.toLowerCase().includes(indicator)
+      )
+    )
   }
 
   destroy(): void {

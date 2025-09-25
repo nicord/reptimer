@@ -40,12 +40,12 @@ export default function RoutineSelector({
   const presetKeys = getPresetKeys()
 
   return (
-    <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4">
+    <div className="bg-white border-b border-gray-200 p-4">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           {/* Preset Selection */}
           <div className="flex-1">
-            <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
+            <h3 className="text-lg font-semibold mb-3 text-gray-900">
               4-Week Progression Program
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -59,22 +59,22 @@ export default function RoutineSelector({
                     onClick={() => handlePresetSelect(key)}
                     className={`p-3 rounded-lg border-2 transition-all duration-200 text-left ${
                       isSelected
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                        : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600'
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-gray-200 hover:border-blue-300'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-semibold text-gray-900 dark:text-white">
+                      <span className="font-semibold text-gray-900">
                         {preset.name}
                       </span>
                       {isSelected && (
                         <PlayIcon className="w-4 h-4 text-blue-500" />
                       )}
                     </div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                    <div className="text-sm text-gray-600 mb-1">
                       {preset.description}
                     </div>
-                    <div className="flex items-center text-xs text-gray-500 dark:text-gray-500">
+                    <div className="flex items-center text-xs text-gray-500">
                       <ClockIcon className="w-3 h-3 mr-1" />
                       {formatDuration(preset.totalDuration)}
                     </div>
@@ -86,7 +86,7 @@ export default function RoutineSelector({
 
           {/* Custom Routine Actions */}
           <div className="lg:ml-6">
-            <h4 className="text-sm font-medium mb-3 text-gray-700 dark:text-gray-300 lg:text-right">
+            <h4 className="text-sm font-medium mb-3 text-gray-700 lg:text-right">
               Custom Routines
             </h4>
             <div className="flex flex-wrap gap-2 lg:justify-end">
@@ -131,7 +131,7 @@ export default function RoutineSelector({
             
             {/* Current routine indicator */}
             {hasRoutine && currentRoutineName && (
-              <div className="mt-2 text-xs text-gray-600 dark:text-gray-400 lg:text-right">
+              <div className="mt-2 text-xs text-gray-600 lg:text-right">
                 Current: {currentRoutineName}
               </div>
             )}
@@ -140,9 +140,9 @@ export default function RoutineSelector({
 
         {/* Quick stats */}
         {hasRoutine && (
-          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="mt-4 pt-4 border-t border-gray-200">
             <div className="flex justify-center">
-              <div className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300 text-sm">
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-800 text-sm">
                 <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
                 Routine loaded and ready
               </div>

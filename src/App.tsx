@@ -20,7 +20,7 @@ function App() {
   const [importExportMode, setImportExportMode] = useState<'import' | 'export'>('import')
 
   // Hooks
-  const { settings, updateLastRoutine, toggleDarkMode, toggleAudio, toggleVoice } = useSettings()
+  const { settings, updateLastRoutine } = useSettings()
   const { isFullscreen, toggleFullscreen } = useFullscreen()
   const { 
     isSupported: wakeLockSupported, 
@@ -62,8 +62,6 @@ function App() {
     onNext: next,
     onPrevious: previous,
     onFullscreen: toggleFullscreen,
-    onMute: toggleAudio,
-    onVoice: toggleVoice,
     onReset: reset
   })
 
@@ -129,19 +127,6 @@ function App() {
 
   return (
     <div className={`h-full flex flex-col ${isFullscreen ? 'fullscreen' : ''}`}>
-      {/* Header with routine selector */}
-      {!isFullscreen && (
-        <RoutineSelector
-          onSelectRoutine={(routine) => handleSelectRoutine(routine)}
-          onCreateRoutine={handleCreateRoutine}
-          onEditRoutine={handleEditRoutine}
-          onImportRoutine={handleImportRoutine}
-          onExportRoutine={handleExportRoutine}
-          hasRoutine={hasRoutine}
-          currentRoutineName={currentRoutineName}
-        />
-      )}
-
       {/* Main timer display */}
       <TimerDisplay
         timerState={timerState}
@@ -159,18 +144,25 @@ function App() {
         onNext={next}
         onPrevious={previous}
         onToggleFullscreen={toggleFullscreen}
-        onToggleAudio={toggleAudio}
-        onToggleVoice={toggleVoice}
-        onToggleDarkMode={toggleDarkMode}
         onToggleWakeLock={wakeLockActive ? releaseWakeLock : requestWakeLock}
         isFullscreen={isFullscreen}
-        audioEnabled={settings.audioEnabled}
-        voiceEnabled={settings.voiceEnabled}
-        darkMode={settings.darkMode}
         wakeLockActive={wakeLockActive}
         wakeLockSupported={wakeLockSupported}
         hasRoutine={hasRoutine}
       />
+
+      {/* Routine selector below main content */}
+      {!isFullscreen && (
+        <RoutineSelector
+          onSelectRoutine={(routine) => handleSelectRoutine(routine)}
+          onCreateRoutine={handleCreateRoutine}
+          onEditRoutine={handleEditRoutine}
+          onImportRoutine={handleImportRoutine}
+          onExportRoutine={handleExportRoutine}
+          hasRoutine={hasRoutine}
+          currentRoutineName={currentRoutineName}
+        />
+      )}
 
       {/* Modals */}
       <RoutineEditor

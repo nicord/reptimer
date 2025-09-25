@@ -60,7 +60,7 @@ export default function TimerDisplay({
           )}
           
           {!currentInterval && !timerState.isRunning && (
-            <h2 className="text-lg md:text-2xl lg:text-3xl font-bold mb-2 text-gray-600 dark:text-gray-400">
+            <h2 className="text-lg md:text-2xl lg:text-3xl font-bold mb-2 text-gray-600">
               Ready to start
             </h2>
           )}
