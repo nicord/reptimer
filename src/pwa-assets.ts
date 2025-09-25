@@ -25,5 +25,5 @@ export const isPWA = (): boolean => {
 
 // Get app version info
 export const getAppVersion = (): string => {
-  return '1.0.10'
+  return '1.0.13'
 }

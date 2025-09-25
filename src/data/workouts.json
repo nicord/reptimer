@@ -1,0 +1,334 @@
+{
+  "week1": {
+    "metadata": {
+      "name": "Week 1",
+      "description": "2 rounds • 40s work / 20s rest"
+    },
+    "routine": [
+      {
+        "type": "individual",
+        "step": {
+          "label": "Warm-up",
+          "duration": 120,
+          "type": "warmup"
+        }
+      },
+      {
+        "type": "repeat",
+        "repetitions": 2,
+        "steps": [
+          {
+            "label": "Push-ups",
+            "duration": 40,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 20,
+            "type": "rest"
+          },
+          {
+            "label": "Dumbbell Shoulder Press",
+            "duration": 40,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 20,
+            "type": "rest"
+          },
+          {
+            "label": "Bent-over Dumbbell Row",
+            "duration": 40,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 20,
+            "type": "rest"
+          },
+          {
+            "label": "Diamond Push-ups",
+            "duration": 40,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 20,
+            "type": "rest"
+          },
+          {
+            "label": "Dumbbell Lateral Raise",
+            "duration": 40,
+            "type": "work"
+          }
+        ]
+      },
+      {
+        "type": "individual",
+        "step": {
+          "label": "Fast Push-ups — Finisher",
+          "duration": 60,
+          "type": "finisher"
+        }
+      },
+      {
+        "type": "individual",
+        "step": {
+          "label": "Cool Down",
+          "duration": 120,
+          "type": "cooldown"
+        }
+      }
+    ]
+  },
+  "week2": {
+    "metadata": {
+      "name": "Week 2",
+      "description": "3 rounds • 40s work / 20s rest"
+    },
+    "routine": [
+      {
+        "type": "individual",
+        "step": {
+          "label": "Warm-up",
+          "duration": 120,
+          "type": "warmup"
+        }
+      },
+      {
+        "type": "repeat",
+        "repetitions": 3,
+        "steps": [
+          {
+            "label": "Push-ups",
+            "duration": 40,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 20,
+            "type": "rest"
+          },
+          {
+            "label": "Dumbbell Shoulder Press",
+            "duration": 40,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 20,
+            "type": "rest"
+          },
+          {
+            "label": "Bent-over Dumbbell Row",
+            "duration": 40,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 20,
+            "type": "rest"
+          },
+          {
+            "label": "Diamond Push-ups",
+            "duration": 40,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 20,
+            "type": "rest"
+          },
+          {
+            "label": "Dumbbell Lateral Raise",
+            "duration": 40,
+            "type": "work"
+          }
+        ]
+      },
+      {
+        "type": "individual",
+        "step": {
+          "label": "Fast Dumbbell Curls — Finisher",
+          "duration": 60,
+          "type": "finisher"
+        }
+      },
+      {
+        "type": "individual",
+        "step": {
+          "label": "Cool Down",
+          "duration": 120,
+          "type": "cooldown"
+        }
+      }
+    ]
+  },
+  "week3": {
+    "metadata": {
+      "name": "Week 3",
+      "description": "3 rounds • 45s work / 15s rest"
+    },
+    "routine": [
+      {
+        "type": "individual",
+        "step": {
+          "label": "Warm-up",
+          "duration": 90,
+          "type": "warmup"
+        }
+      },
+      {
+        "type": "repeat",
+        "repetitions": 3,
+        "steps": [
+          {
+            "label": "Push-ups",
+            "duration": 45,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 15,
+            "type": "rest"
+          },
+          {
+            "label": "Dumbbell Shoulder Press",
+            "duration": 45,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 15,
+            "type": "rest"
+          },
+          {
+            "label": "Bent-over Dumbbell Row",
+            "duration": 45,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 15,
+            "type": "rest"
+          },
+          {
+            "label": "Diamond Push-ups",
+            "duration": 45,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 15,
+            "type": "rest"
+          },
+          {
+            "label": "Dumbbell Lateral Raise",
+            "duration": 45,
+            "type": "work"
+          }
+        ]
+      },
+      {
+        "type": "individual",
+        "step": {
+          "label": "Explosive Push-ups — Finisher",
+          "duration": 60,
+          "type": "finisher"
+        }
+      },
+      {
+        "type": "individual",
+        "step": {
+          "label": "Cool Down",
+          "duration": 90,
+          "type": "cooldown"
+        }
+      }
+    ]
+  },
+  "week4": {
+    "metadata": {
+      "name": "Week 4",
+      "description": "4 rounds • 45s work / 15s rest"
+    },
+    "routine": [
+      {
+        "type": "individual",
+        "step": {
+          "label": "Warm-up",
+          "duration": 60,
+          "type": "warmup"
+        }
+      },
+      {
+        "type": "repeat",
+        "repetitions": 4,
+        "steps": [
+          {
+            "label": "Push-ups",
+            "duration": 45,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 15,
+            "type": "rest"
+          },
+          {
+            "label": "Dumbbell Shoulder Press",
+            "duration": 45,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 15,
+            "type": "rest"
+          },
+          {
+            "label": "Bent-over Dumbbell Row",
+            "duration": 45,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 15,
+            "type": "rest"
+          },
+          {
+            "label": "Diamond Push-ups",
+            "duration": 45,
+            "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 15,
+            "type": "rest"
+          },
+          {
+            "label": "Dumbbell Lateral Raise",
+            "duration": 45,
+            "type": "work"
+          }
+        ]
+      },
+      {
+        "type": "individual",
+        "step": {
+          "label": "AMRAP: 5 Shoulder Press + 5 Push-ups — Finisher",
+          "duration": 60,
+          "type": "finisher"
+        }
+      },
+      {
+        "type": "individual",
+        "step": {
+          "label": "Cool Down",
+          "duration": 60,
+          "type": "cooldown"
+        }
+      }
+    ]
+  }
+}

@@ -9,6 +9,38 @@ export interface Interval {
 
 export type Routine = Interval[]
 
+// New types for structured workout data
+export interface WorkoutStep {
+  label: string
+  duration: number
+  type: IntervalType
+}
+
+export interface IndividualRoutineItem {
+  type: 'individual'
+  step: WorkoutStep
+}
+
+export interface RepeatRoutineItem {
+  type: 'repeat'
+  repetitions: number
+  steps: WorkoutStep[]
+}
+
+export type RoutineItem = IndividualRoutineItem | RepeatRoutineItem
+
+export interface WorkoutPreset {
+  metadata: {
+    name: string
+    description: string
+  }
+  routine: RoutineItem[]
+}
+
+export interface WorkoutData {
+  [key: string]: WorkoutPreset
+}
+
 export interface TimerState {
   isRunning: boolean
   isPaused: boolean

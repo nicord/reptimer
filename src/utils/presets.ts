@@ -1,72 +1,44 @@
-import { Routine } from '../types'
-
-const EXERCISES = [
-  'Push-ups',
-  'Dumbbell Shoulder Press', 
-  'Bent-over Dumbbell Row',
-  'Diamond Push-ups',
-  'Dumbbell Lateral Raise'
-]
+import { Routine, WorkoutData, WorkoutPreset, Interval } from '../types'
+import workoutsData from '../data/workouts.json'
 
 /**
- * Create a routine with warmup, multiple rounds of exercises, finisher, and cooldown
+ * Convert a structured workout preset to a flat routine format
  */
-function createRoutine(
-  warmupDuration: number,
-  rounds: number,
-  workDuration: number,
-  restDuration: number,
-  finisherName: string,
-  finisherDuration: number,
-  cooldownDuration: number
-): Routine {
-  const routine: Routine = []
-
-  // Add warmup
-  routine.push({
-    label: 'Warm-up',
-    duration: warmupDuration,
-    type: 'warmup'
-  })
-
-  // Add exercise rounds
-  for (let round = 1; round <= rounds; round++) {
-    EXERCISES.forEach((exercise, exerciseIndex) => {
-      // Work interval
+function convertToRoutine(preset: WorkoutPreset): Routine {
+  const routine: Interval[] = []
+  
+  for (const item of preset.routine) {
+    if (item.type === 'individual') {
       routine.push({
-        label: `${exercise} — Round ${round}`,
-        duration: workDuration,
-        type: 'work'
+        label: item.step.label,
+        duration: item.step.duration,
+        type: item.step.type
       })
-
-      // Rest interval (except after last exercise of last round)
-      const isLastExerciseOfLastRound = round === rounds && exerciseIndex === EXERCISES.length - 1
-      if (!isLastExerciseOfLastRound) {
-        routine.push({
-          label: `Rest — Round ${round}`,
-          duration: restDuration,
-          type: 'rest'
-        })
+    } else if (item.type === 'repeat') {
+      for (let round = 1; round <= item.repetitions; round++) {
+        for (const step of item.steps) {
+          // Add round number to work exercises, but not to rest intervals
+          const label = step.type === 'work' 
+            ? `${step.label} — Round ${round}`
+            : step.type === 'rest'
+            ? `Rest — Round ${round}`
+            : step.label
+          
+          routine.push({
+            label,
+            duration: step.duration,
+            type: step.type
+          })
+        }
       }
-    })
+    }
   }
-
-  // Add finisher
-  routine.push({
-    label: finisherName,
-    duration: finisherDuration,
-    type: 'finisher'
-  })
-
-  // Add cooldown
-  routine.push({
-    label: 'Cool Down',
-    duration: cooldownDuration,
-    type: 'cooldown'
-  })
-
+  
   return routine
 }
+
+// Cast the imported data to the correct type
+const typedWorkoutsData = workoutsData as WorkoutData
 
 /**
  * Week 1 Preset
@@ -76,15 +48,7 @@ function createRoutine(
  * - Finisher: 1:00 (fast push-ups)
  * - Cooldown: 2:00
  */
-export const week1Preset: Routine = createRoutine(
-  120, // 2:00 warmup
-  2,   // 2 rounds
-  40,  // 40s work
-  20,  // 20s rest
-  'Fast Push-ups — Finisher',
-  60,  // 1:00 finisher
-  120  // 2:00 cooldown
-)
+export const week1Preset: Routine = convertToRoutine(typedWorkoutsData.week1)
 
 /**
  * Week 2 Preset
@@ -94,15 +58,7 @@ export const week1Preset: Routine = createRoutine(
  * - Finisher: 1:00 (dumbbell curls fast)
  * - Cooldown: 2:00
  */
-export const week2Preset: Routine = createRoutine(
-  120, // 2:00 warmup
-  3,   // 3 rounds
-  40,  // 40s work
-  20,  // 20s rest
-  'Fast Dumbbell Curls — Finisher',
-  60,  // 1:00 finisher
-  120  // 2:00 cooldown
-)
+export const week2Preset: Routine = convertToRoutine(typedWorkoutsData.week2)
 
 /**
  * Week 3 Preset
@@ -112,15 +68,7 @@ export const week2Preset: Routine = createRoutine(
  * - Finisher: 1:00 (explosive push-ups)
  * - Cooldown: 1:30
  */
-export const week3Preset: Routine = createRoutine(
-  90,  // 1:30 warmup
-  3,   // 3 rounds
-  45,  // 45s work
-  15,  // 15s rest
-  'Explosive Push-ups — Finisher',
-  60,  // 1:00 finisher
-  90   // 1:30 cooldown
-)
+export const week3Preset: Routine = convertToRoutine(typedWorkoutsData.week3)
 
 /**
  * Week 4 Preset
@@ -130,41 +78,33 @@ export const week3Preset: Routine = createRoutine(
  * - Finisher: 1:00 (AMRAP superset: 5 shoulder press / 5 push-ups loop)
  * - Cooldown: 1:00
  */
-export const week4Preset: Routine = createRoutine(
-  60,  // 1:00 warmup
-  4,   // 4 rounds
-  45,  // 45s work
-  15,  // 15s rest
-  'AMRAP: 5 Shoulder Press + 5 Push-ups — Finisher',
-  60,  // 1:00 finisher
-  60   // 1:00 cooldown
-)
+export const week4Preset: Routine = convertToRoutine(typedWorkoutsData.week4)
 
 /**
- * All presets with metadata
+ * All presets with metadata from JSON
  */
 export const presets = {
   week1: {
-    name: 'Week 1',
-    description: '2 rounds • 40s work / 20s rest',
+    name: typedWorkoutsData.week1.metadata.name,
+    description: typedWorkoutsData.week1.metadata.description,
     routine: week1Preset,
     totalDuration: week1Preset.reduce((sum, interval) => sum + interval.duration, 0)
   },
   week2: {
-    name: 'Week 2', 
-    description: '3 rounds • 40s work / 20s rest',
+    name: typedWorkoutsData.week2.metadata.name,
+    description: typedWorkoutsData.week2.metadata.description,
     routine: week2Preset,
     totalDuration: week2Preset.reduce((sum, interval) => sum + interval.duration, 0)
   },
   week3: {
-    name: 'Week 3',
-    description: '3 rounds • 45s work / 15s rest', 
+    name: typedWorkoutsData.week3.metadata.name,
+    description: typedWorkoutsData.week3.metadata.description,
     routine: week3Preset,
     totalDuration: week3Preset.reduce((sum, interval) => sum + interval.duration, 0)
   },
   week4: {
-    name: 'Week 4',
-    description: '4 rounds • 45s work / 15s rest',
+    name: typedWorkoutsData.week4.metadata.name,
+    description: typedWorkoutsData.week4.metadata.description,
     routine: week4Preset,
     totalDuration: week4Preset.reduce((sum, interval) => sum + interval.duration, 0)
   }
@@ -191,4 +131,18 @@ export function getPreset(key: keyof typeof presets) {
  */
 export function getPresetKeys(): (keyof typeof presets)[] {
   return Object.keys(presets) as (keyof typeof presets)[]
+}
+
+/**
+ * Get the raw workout data (useful for accessing metadata and structured format)
+ */
+export function getWorkoutData(): WorkoutData {
+  return typedWorkoutsData
+}
+
+/**
+ * Convert any workout preset to a routine
+ */
+export function convertWorkoutToRoutine(preset: WorkoutPreset): Routine {
+  return convertToRoutine(preset)
 }

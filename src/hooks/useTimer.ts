@@ -54,6 +54,9 @@ export function useTimer(options: UseTimerOptions = {}) {
       const currentInterval = currentRoutine[intervalIndex]
       const timeRemaining = currentInterval?.duration || 0
       
+      // Cancel any ongoing speech before announcing new interval
+      speechRef.current?.stop()
+      
       // Play interval change beep
       audioRef.current?.playBeep()
       
@@ -121,16 +124,22 @@ export function useTimer(options: UseTimerOptions = {}) {
   }, [])
 
   const reset = useCallback(() => {
+    // Cancel any ongoing speech when resetting
+    speechRef.current?.stop()
     timerRef.current?.reset()
     setLastCountdownSecond(-1)
     setHasStartedBefore(false)
   }, [])
 
   const next = useCallback(() => {
+    // Cancel any ongoing speech when manually advancing
+    speechRef.current?.stop()
     timerRef.current?.nextInterval()
   }, [])
 
   const previous = useCallback(() => {
+    // Cancel any ongoing speech when manually going back
+    speechRef.current?.stop()
     timerRef.current?.previousInterval()
   }, [])
 
