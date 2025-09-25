@@ -61,6 +61,11 @@
             "label": "Dumbbell Lateral Raise",
             "duration": 40,
             "type": "work"
+          },
+          {
+            "label": "Rest",
+            "duration": 20,
+            "type": "rest"
           }
         ]
       },
@@ -144,6 +149,11 @@
             "label": "Dumbbell Lateral Raise",
             "duration": 40,
             "type": "work"
+          }, 
+          {
+            "label": "Rest",
+            "duration": 20,
+            "type": "rest"
           }
         ]
       },
@@ -227,6 +237,11 @@
             "label": "Dumbbell Lateral Raise",
             "duration": 45,
             "type": "work"
+          }, 
+          {
+            "label": "Rest",
+            "duration": 20,
+            "type": "rest"
           }
         ]
       },
@@ -310,6 +325,11 @@
             "label": "Dumbbell Lateral Raise",
             "duration": 45,
             "type": "work"
+          }, 
+          {
+            "label": "Rest",
+            "duration": 20,
+            "type": "rest"
           }
         ]
       },
