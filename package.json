@@ -26,7 +26,8 @@
     "clean": "rm -rf node_modules pnpm-lock.yaml dist",
     "reinstall": "pnpm run clean && pnpm install",
     "kill-dev": "pkill -f vite || true",
-    "check-ports": "lsof -i :5173-5180 || echo 'No processes found on dev ports'"
+    "check-ports": "lsof -i :5173-5180 || echo 'No processes found on dev ports'",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -44,6 +45,7 @@
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "gh-pages": "^6.3.0",
     "jsdom": "^27.0.0",
     "postcss": "^8.4.32",
     "prettier": "^3.1.1",
