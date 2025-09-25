@@ -11,6 +11,7 @@ import { useFullscreen } from './hooks/useFullscreen'
 import { useWakeLock } from './hooks/useWakeLock'
 import { Routine } from './types'
 import { week1Preset } from './utils/presets'
+import { getAppVersion } from './pwa-assets'
 
 function App() {
   const [currentRoutineName, setCurrentRoutineName] = useState<string>('')
@@ -125,6 +126,14 @@ function App() {
 
   const hasRoutine = routine.length > 0
 
+  // Request wake lock by default when app loads with a routine
+  useEffect(() => {
+    if (wakeLockSupported && hasRoutine && !wakeLockActive) {
+      console.log('Requesting wake lock by default for workout app')
+      requestWakeLock()
+    }
+  }, [wakeLockSupported, hasRoutine, wakeLockActive, requestWakeLock])
+
   return (
     <div className={`h-full flex flex-col ${isFullscreen ? 'fullscreen' : ''}`}>
       {/* Main timer display */}
@@ -163,6 +172,13 @@ function App() {
           currentRoutineName={currentRoutineName}
         />
       )}
+
+      {/* Version display at bottom */}
+      <div className="flex-shrink-0 flex justify-center items-center py-2 px-4">
+        <span className="text-xs text-gray-400 select-none">
+          v{getAppVersion()}
+        </span>
+      </div>
 
       {/* Modals */}
       <RoutineEditor

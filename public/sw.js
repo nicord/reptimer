@@ -1,5 +1,6 @@
 // RepTimer Service Worker
-const CACHE_NAME = 'reptimer-v1'
+const CACHE_VERSION = `reptimer-v${Date.now()}`
+const CACHE_NAME = CACHE_VERSION
 const STATIC_CACHE_URLS = [
   '/',
   '/index.html',
@@ -48,7 +49,7 @@ self.addEventListener('activate', (event) => {
   )
 })
 
-// Fetch event - serve from cache when offline
+// Fetch event - network first, then cache
 self.addEventListener('fetch', (event) => {
   // Only handle GET requests
   if (event.request.method !== 'GET') {
@@ -60,45 +61,76 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
-  event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        // Return cached version if available
-        if (cachedResponse) {
-          return cachedResponse
-        }
-
-        // Otherwise, fetch from network
-        return fetch(event.request)
-          .then((networkResponse) => {
-            // Don't cache non-successful responses
-            if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-              return networkResponse
-            }
-
-            // Clone the response for caching
-            const responseToCache = networkResponse.clone()
-
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache)
-              })
-
-            return networkResponse
-          })
-          .catch((error) => {
-            console.log('Fetch failed, serving offline page if available:', error)
-            
-            // For navigation requests, try to serve the main page from cache
-            if (event.request.destination === 'document') {
-              return caches.match('/')
-            }
-            
-            throw error
-          })
-      })
-  )
+  // Use different strategies for different types of requests
+  if (event.request.destination === 'document' || 
+      event.request.url.includes('.js') || 
+      event.request.url.includes('.css') ||
+      event.request.url.includes('index.html')) {
+    // Network first for app files to ensure updates
+    event.respondWith(networkFirstStrategy(event.request))
+  } else {
+    // Cache first for assets like images
+    event.respondWith(cacheFirstStrategy(event.request))
+  }
 })
+
+// Network-first strategy for app files
+async function networkFirstStrategy(request) {
+  try {
+    // Try network first
+    const networkResponse = await fetch(request)
+    
+    if (networkResponse && networkResponse.status === 200) {
+      // Update cache with fresh content
+      const cache = await caches.open(CACHE_NAME)
+      cache.put(request, networkResponse.clone())
+      return networkResponse
+    }
+    
+    throw new Error('Network response not ok')
+  } catch (error) {
+    // Network failed, try cache
+    console.log('Network failed, trying cache for:', request.url)
+    const cachedResponse = await caches.match(request)
+    
+    if (cachedResponse) {
+      return cachedResponse
+    }
+    
+    // For navigation requests, serve the main page
+    if (request.destination === 'document') {
+      const mainPage = await caches.match('/')
+      if (mainPage) {
+        return mainPage
+      }
+    }
+    
+    throw error
+  }
+}
+
+// Cache-first strategy for static assets
+async function cacheFirstStrategy(request) {
+  const cachedResponse = await caches.match(request)
+  
+  if (cachedResponse) {
+    return cachedResponse
+  }
+  
+  try {
+    const networkResponse = await fetch(request)
+    
+    if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+      const cache = await caches.open(CACHE_NAME)
+      cache.put(request, networkResponse.clone())
+    }
+    
+    return networkResponse
+  } catch (error) {
+    console.log('Both cache and network failed for:', request.url)
+    throw error
+  }
+}
 
 // Message event - handle commands from the app
 self.addEventListener('message', (event) => {

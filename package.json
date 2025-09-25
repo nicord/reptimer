@@ -1,7 +1,7 @@
 {
   "name": "reptimer",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.6",
   "type": "module",
   "description": "A production-ready HIIT interval timer PWA",
   "keywords": [
@@ -15,7 +15,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "version-bump": "node scripts/version-bump.cjs",
+    "build": "npm run version-bump && tsc && vite build",
+    "build:no-bump": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
