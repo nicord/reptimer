@@ -6,7 +6,11 @@ import {
   ForwardIcon,
   ArrowsPointingOutIcon,
   ArrowsPointingInIcon,
-  PowerIcon
+  PowerIcon,
+  SpeakerWaveIcon,
+  SpeakerXMarkIcon,
+  MicrophoneIcon,
+  NoSymbolIcon
 } from '@heroicons/react/24/outline'
 import { TimerState } from '../types'
 
@@ -18,9 +22,13 @@ interface TimerControlsProps {
   onPrevious: () => void
   onToggleFullscreen: () => void
   onToggleWakeLock?: () => void
+  onToggleAudio?: () => void
+  onToggleVoice?: () => void
   isFullscreen: boolean
   wakeLockActive?: boolean
   wakeLockSupported?: boolean
+  audioEnabled?: boolean
+  voiceEnabled?: boolean
   hasRoutine: boolean
 }
 
@@ -32,9 +40,13 @@ export default function TimerControls({
   onPrevious,
   onToggleFullscreen,
   onToggleWakeLock,
+  onToggleAudio,
+  onToggleVoice,
   isFullscreen,
   wakeLockActive,
   wakeLockSupported,
+  audioEnabled = true,
+  voiceEnabled = true,
   hasRoutine
 }: TimerControlsProps) {
   
@@ -94,6 +106,37 @@ export default function TimerControls({
 
         {/* Secondary controls */}
         <div className="flex justify-center items-center space-x-2 flex-wrap gap-2">
+          {/* Audio toggle */}
+          <button
+            onClick={onToggleAudio}
+            className={`btn btn-icon ${audioEnabled ? 'btn-primary' : 'btn-secondary'}`}
+            aria-label={`${audioEnabled ? 'Disable' : 'Enable'} audio (M)`}
+            title={`${audioEnabled ? 'Disable' : 'Enable'} audio (M)`}
+          >
+            {audioEnabled ? (
+              <SpeakerWaveIcon className="w-4 h-4" />
+            ) : (
+              <SpeakerXMarkIcon className="w-4 h-4" />
+            )}
+          </button>
+
+          {/* Voice toggle */}
+          <button
+            onClick={onToggleVoice}
+            className={`btn btn-icon ${voiceEnabled ? 'btn-primary' : 'btn-secondary'}`}
+            aria-label={`${voiceEnabled ? 'Disable' : 'Enable'} voice announcements (V)`}
+            title={`${voiceEnabled ? 'Disable' : 'Enable'} voice announcements (V)`}
+          >
+            {voiceEnabled ? (
+              <MicrophoneIcon className="w-4 h-4" />
+            ) : (
+              <div className="relative">
+                <MicrophoneIcon className="w-4 h-4" />
+                <NoSymbolIcon className="w-4 h-4 absolute -top-0.5 -left-0.5 text-red-500" />
+              </div>
+            )}
+          </button>
+
           {/* Wake lock toggle */}
           {wakeLockSupported && (
             <button

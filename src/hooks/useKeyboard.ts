@@ -7,6 +7,9 @@ interface KeyboardHandlers {
   onPrevious?: () => void
   onFullscreen?: () => void
   onReset?: () => void
+  onToggleAudio?: () => void
+  onToggleVoice?: () => void
+  onTestSpeech?: () => void
 }
 
 interface UseKeyboardOptions {
@@ -61,6 +64,21 @@ export function useKeyboard(
         handlers.onReset?.()
         handled = true
         break
+      
+      case KeyboardShortcuts.MUTE:
+        handlers.onToggleAudio?.()
+        handled = true
+        break
+      
+      case KeyboardShortcuts.VOICE:
+        handlers.onToggleVoice?.()
+        handled = true
+        break
+      
+      case 't':
+        handlers.onTestSpeech?.()
+        handled = true
+        break
     }
 
     if (handled && preventDefaultOnHandled) {
@@ -87,6 +105,9 @@ export function useKeyboard(
       'B': 'Previous interval', 
       'F': 'Fullscreen',
       'R': 'Reset timer',
+      'M': 'Toggle audio',
+      'V': 'Toggle voice',
+      'T': 'Test speech',
     }
   }
 }

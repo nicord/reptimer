@@ -21,7 +21,7 @@ function App() {
   const [importExportMode, setImportExportMode] = useState<'import' | 'export'>('import')
 
   // Hooks
-  const { settings, updateLastRoutine } = useSettings()
+  const { settings, updateLastRoutine, toggleAudio, toggleVoice } = useSettings()
   const { isFullscreen, toggleFullscreen } = useFullscreen()
   const { 
     isSupported: wakeLockSupported, 
@@ -41,7 +41,8 @@ function App() {
     next,
     previous,
     toggle,
-    setRoutine
+    setRoutine,
+    testSpeech
   } = useTimer({
     audioEnabled: settings.audioEnabled,
     voiceEnabled: settings.voiceEnabled,
@@ -63,7 +64,10 @@ function App() {
     onNext: next,
     onPrevious: previous,
     onFullscreen: toggleFullscreen,
-    onReset: reset
+    onReset: reset,
+    onToggleAudio: toggleAudio,
+    onToggleVoice: toggleVoice,
+    onTestSpeech: testSpeech
   })
 
   // Auto-acquire wake lock when timer starts
@@ -154,9 +158,13 @@ function App() {
         onPrevious={previous}
         onToggleFullscreen={toggleFullscreen}
         onToggleWakeLock={wakeLockActive ? releaseWakeLock : requestWakeLock}
+        onToggleAudio={toggleAudio}
+        onToggleVoice={toggleVoice}
         isFullscreen={isFullscreen}
         wakeLockActive={wakeLockActive}
         wakeLockSupported={wakeLockSupported}
+        audioEnabled={settings.audioEnabled}
+        voiceEnabled={settings.voiceEnabled}
         hasRoutine={hasRoutine}
       />
 

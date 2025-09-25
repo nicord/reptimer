@@ -11,17 +11,21 @@ export class SpeechEngine {
   }
 
   private initializeSpeech(): void {
+    console.log('🎤 Initializing speech synthesis...')
     if ('speechSynthesis' in window) {
       this.synth = window.speechSynthesis
+      console.log('✅ Speech synthesis is supported')
       
       // Load voices when they become available
       if (this.synth.getVoices().length === 0) {
+        console.log('⏳ Waiting for voices to load...')
         this.synth.addEventListener('voiceschanged', this.loadVoices)
       } else {
+        console.log('🔊 Voices already available, loading...')
         this.loadVoices()
       }
     } else {
-      console.warn('Speech synthesis not supported in this browser')
+      console.error('❌ Speech synthesis not supported in this browser')
     }
   }
 
@@ -62,6 +66,7 @@ export class SpeechEngine {
   }
 
   setEnabled(enabled: boolean): void {
+    console.log(`🎤 Voice ${enabled ? 'ENABLED' : 'DISABLED'}`)
     this.isEnabled = enabled
     
     // Cancel any ongoing speech when disabled
@@ -154,10 +159,31 @@ export class SpeechEngine {
    * Test the speech synthesis
    */
   test(): void {
+    console.log('🧪 Testing speech synthesis...')
+    this.debugStatus()
     const message = this.voice 
       ? `Speech test using ${this.voice.name}. RepTimer is ready for your workout!`
       : 'Speech test. RepTimer is ready for your workout!'
     this.speak(message)
+  }
+
+  /**
+   * Debug current speech engine status
+   */
+  debugStatus(): void {
+    console.log('=== SPEECH ENGINE DEBUG ===')
+    console.log(`Enabled: ${this.isEnabled}`)
+    console.log(`Synth available: ${!!this.synth}`)
+    console.log(`Voice: ${this.voice?.name || 'none'}`)
+    console.log(`Rate: ${this.rate}`)
+    console.log(`Volume: ${this.volume}`)
+    console.log(`Available voices: ${this.synth?.getVoices().length || 0}`)
+    if (this.synth) {
+      console.log(`Currently speaking: ${this.synth.speaking}`)
+      console.log(`Pending: ${this.synth.pending}`)
+      console.log(`Paused: ${this.synth.paused}`)
+    }
+    console.log('=== END DEBUG ===')
   }
 
   /**
@@ -172,7 +198,19 @@ export class SpeechEngine {
       priority?: 'low' | 'normal' | 'high'
     } = {}
   ): void {
-    if (!this.synth || !this.isEnabled) return
+    console.log(`🗣️ Attempting to speak: "${text}"`)
+    console.log(`🎤 Voice enabled: ${this.isEnabled}`)
+    console.log(`🔊 Synth available: ${!!this.synth}`)
+    
+    if (!this.synth) {
+      console.error('❌ No speech synthesis available')
+      return
+    }
+    
+    if (!this.isEnabled) {
+      console.warn('⚠️ Voice is disabled')
+      return
+    }
 
     // Cancel lower priority speech if high priority is requested
     if (options.priority === 'high' && this.synth.speaking) {
@@ -207,9 +245,10 @@ export class SpeechEngine {
     }
 
     try {
+      console.log(`🚀 Speaking: "${text}" with voice: ${this.voice?.name || 'default'}`)
       this.synth.speak(utterance)
     } catch (error) {
-      console.warn('Error speaking text:', error)
+      console.error('❌ Error speaking text:', error)
     }
   }
 
