@@ -23,8 +23,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
-    "clean": "rm -rf node_modules pnpm-lock.yaml dist",
-    "reinstall": "pnpm run clean && pnpm install",
+    "clean": "rm -rf dist",
     "kill-dev": "pkill -f vite || true",
     "check-ports": "lsof -i :5173-5180 || echo 'No processes found on dev ports'",
     "deploy": "gh-pages -d dist"
