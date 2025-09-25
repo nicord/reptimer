@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    
+    <!-- Favicon and icons -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/pwa-512x512.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    
+    <!-- PWA manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Viewport and mobile optimization -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    
+    <!-- PWA meta tags -->
+    <meta name="description" content="A production-ready HIIT interval timer PWA for workouts" />
+    <meta name="theme-color" content="#1f2937" />
+    <meta name="background-color" content="#ffffff" />
+    <meta name="display" content="standalone" />
+    <meta name="orientation" content="portrait-primary" />
+    
+    <!-- iOS PWA meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="RepTimer" />
+    
+    <!-- Prevent zoom on inputs (iOS) -->
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- Keywords for app stores -->
+    <meta name="keywords" content="HIIT, interval timer, workout, fitness, exercise, training, timer, PWA" />
+    <meta name="author" content="RepTimer" />
+    
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="RepTimer - HIIT Interval Timer" />
+    <meta property="og:description" content="A production-ready HIIT interval timer PWA for workouts" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/pwa-512x512.png" />
+    
+    <!-- Twitter Card meta tags -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="RepTimer - HIIT Interval Timer" />
+    <meta name="twitter:description" content="A production-ready HIIT interval timer PWA for workouts" />
+    <meta name="twitter:image" content="/pwa-512x512.png" />
+    
+    <title>RepTimer - HIIT Interval Timer</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

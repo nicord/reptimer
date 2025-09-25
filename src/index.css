@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply h-full;
+  }
+  
+  body {
+    @apply h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  }
+
+  #root {
+    @apply h-full;
+  }
+
+  /* Prevent text selection on buttons and controls */
+  button, .no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Focus styles for accessibility */
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply outline-none ring-2 ring-blue-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-900;
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .high-contrast {
+      @apply border-2 border-black dark:border-white;
+    }
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Timer display */
+  .timer-display {
+    @apply font-mono text-8xl md:text-9xl font-bold leading-none text-center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Button styles */
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply btn bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500;
+  }
+
+  .btn-secondary {
+    @apply btn bg-gray-200 hover:bg-gray-300 text-gray-900 focus:ring-gray-500 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white;
+  }
+
+  .btn-danger {
+    @apply btn bg-red-600 hover:bg-red-700 text-white focus:ring-red-500;
+  }
+
+  .btn-lg {
+    @apply px-6 py-3 text-base;
+  }
+
+  .btn-icon {
+    @apply p-2 text-sm;
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    @apply w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full transition-all duration-300 ease-out;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700;
+  }
+
+  .card-header {
+    @apply px-6 py-4 border-b border-gray-200 dark:border-gray-700;
+  }
+
+  .card-body {
+    @apply px-6 py-4;
+  }
+
+  /* Interval type indicators */
+  .interval-warmup {
+    background-color: #FDE68A;
+    color: #92400E;
+  }
+
+  .interval-work {
+    background-color: #86EFAC;
+    color: #065F46;
+  }
+
+  .interval-rest {
+    background-color: #BAE6FD;
+    color: #0C4A6E;
+  }
+
+  .interval-finisher {
+    background-color: #FDA4AF;
+    color: #9F1239;
+  }
+
+  .interval-cooldown {
+    background-color: #DDD6FE;
+    color: #5B21B6;
+  }
+
+  /* Fullscreen styles */
+  .fullscreen {
+    @apply fixed inset-0 z-50 bg-white dark:bg-gray-900;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .timer-display {
+      @apply text-6xl;
+    }
+    
+    .btn {
+      @apply text-base py-3;
+    }
+  }
+
+  /* Landscape mobile optimization */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .timer-display {
+      @apply text-5xl;
+    }
+  }
+
+  /* Dark mode specific adjustments */
+  .dark .timer-display {
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+  }
+
+  /* Pulsing animation for active states */
+  .pulse-gentle {
+    animation: pulse-gentle 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-gentle {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  /* Countdown warning animation */
+  .countdown-warning {
+    @apply animate-pulse;
+    animation-duration: 0.5s;
+  }
+
+  /* Screen reader only content */
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  /* Loading spinner */
+  .spinner {
+    @apply inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin;
+  }
+}
